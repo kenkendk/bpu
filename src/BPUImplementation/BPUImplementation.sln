@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUImplementation", "BPUImp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUSimulator", "..\BPUSimulator\BPUSimulator.csproj", "{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUCompiler", "..\BPUCompiler\BPUCompiler.csproj", "{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU

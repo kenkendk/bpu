@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>bpusmecompiler</RootNamespace>
+    <AssemblyName>bpu-sme-compiler</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Commandlineparameters>~/Downloads/testbpu/instr-2-1.bin</Commandlineparameters>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\BPUImplementation\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\BPUImplementation\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SME">
+      <HintPath>..\BPUImplementation\packages\SME.0.1\lib\net45\SME.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.CSVTracer">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.CSVTracer.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Attributes">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Components">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Components.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structs.cs" />
+    <Compile Include="Deserializer.cs" />
+    <Compile Include="Compiler.cs" />
+    <Compile Include="StorageManager.cs" />
+    <Compile Include="TestRunner.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\BPUImplementation\BPUImplementation.csproj">
+      <Project>{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}</Project>
+      <Name>BPUImplementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BPUSimulator\BPUSimulator.csproj">
+      <Project>{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}</Project>
+      <Name>BPUSimulator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
