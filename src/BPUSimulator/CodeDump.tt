@@ -1,0 +1,38 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+library SYSTEM_TYPES;
+use work.SYSTEM_TYPES.ALL;
+
+library CUSTOM_TYPES;
+use work.CUSTOM_TYPES.ALL;
+
+package MICROCODE_SETUP is
+ 	type T_MICROCODE_PROGRAM is array(0 to TO_INTEGER(UNSIGNED(Microcode_MAX_INSTRUCTION_COUNT)-1)) of BPUImplementation_Microcode;
+ 	constant MICROCODE_PROGRAM : T_MICROCODE_PROGRAM := (
+<# foreach(var code in microcode) { 
+	var waits = new string[] { code.rd_wait ? "read" : "", code.wr_wait ? "write" : "", code.ex_wait ? "execute" : "" }.Where(x => !string.IsNullOrWhiteSpace(x));
+	var waitstr = waits.Count() == 0 ? "nothing" : string.Join(", ", waits);
+
+	var writestr = code.wr_mem_valid ? string.Format("writing {0} elements from register {1} to @{2}, regstride = {3}, memstride = {4}", code.wr_mem_cnt, code.wr_mem_reg, code.wr_mem_adr, code.wr_mem_reg_stride, code.wr_mem_adr_stride) : "no writing";
+	var readstr = code.rd_mem_valid ? string.Format("reading {0} elements from  @{1} to register {2}, regstride = {3}, memstride = {4}", code.rd_mem_cnt, code.rd_mem_adr, code.rd_mem_reg, code.rd_mem_reg_stride, code.rd_mem_adr_stride) : "no reading";
+	var exstr = code.ex_valid ? string.Format("performing {0} {1} operations from registers {2},{3} into register {4}, strides = {5}, {6}, {7}", code.ex_cnt, code.ex_opcode, code.ex_src_reg1, code.ex_src_reg2, code.ex_dst_reg, code.ex_src_reg1_stride, code.ex_src_reg2_stride, code.ex_dst_reg_stride) : "no execute";
+
+#>
+              ('<#= code.rd_wait ? "1" : "0" #>', '<#= code.wr_wait ? "1" : "0" #>', '<#= code.ex_wait ? "1" : "0" #>', -- wait for <#= waitstr #>
+               '<#= code.wr_mem_valid ? "1" : "0" #>', repcnt(<#= code.wr_mem_cnt #>), memadr(<#= code.wr_mem_adr #>), regno(<#= code.wr_mem_reg #>), offsetcnt(<#= code.wr_mem_adr_stride #>), offsetcnt(<#= code.wr_mem_reg_stride #>), -- <#= writestr #>
+               '<#= code.rd_mem_valid ? "1" : "0" #>', repcnt(<#= code.rd_mem_cnt #>), memadr(<#= code.rd_mem_adr #>), regno(<#= code.rd_mem_reg #>), offsetcnt(<#= code.rd_mem_adr_stride #>), offsetcnt(<#= code.rd_mem_reg_stride #>), -- <#= readstr #>
+               '<#= code.ex_valid ? "1" : "0" #>', bpuimplementation_opcode_<#= code.ex_opcode #>, regno(<#= code.ex_src_reg1 #>), regno(<#= code.ex_src_reg2 #>), regno(<#= code.ex_dst_reg #>), offsetcnt(<#= code.ex_src_reg1_stride #>), offsetcnt(<#= code.ex_src_reg2_stride #>), offsetcnt(<#= code.ex_dst_reg_stride #>), repcnt(<#= code.ex_cnt #>), '<#= code.ex_src1_mem ? "1" : "0" #>', '<#= code.ex_src2_mem ? "1" : "0" #>', -- <#= exstr #>
+               SYSTEM_UINT16(<#= code.nextpc #>)),
+
+<# } #>
+    others => ('0','0','0', '0',repcnt(0),memadr(0),regno(0),offsetcnt(0),offsetcnt(0), '0',repcnt(0),memadr(0),regno(0),offsetcnt(0),offsetcnt(0), '0', BPUIMPLEMENTATION_OPCODE_NOOP,  regno(0),regno(0),regno(0),offsetcnt(0),offsetcnt(0),offsetcnt(0),repcnt(0),'0','0',   SYSTEM_UINT16(TO_INTEGER(UNSIGNED(Microcode_MAX_INSTRUCTION_COUNT)-1)))
+);
+end MICROCODE_SETUP;

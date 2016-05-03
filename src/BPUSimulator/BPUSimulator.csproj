@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BPUSimulator</RootNamespace>
+    <AssemblyName>BPUSimulator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Castle.Core">
+      <HintPath>..\BPUImplementation\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SME">
+      <HintPath>..\BPUImplementation\packages\SME.0.1\lib\net45\SME.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.CSVTracer">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.CSVTracer.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Attributes">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Components">
+      <HintPath>..\BPUImplementation\packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.GraphViz">
+      <HintPath>..\BPUImplementation\packages\SME.GraphViz.0.1\lib\net45\SME.Render.GraphViz.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleAddMultiply.cs" />
+    <Compile Include="TestRunner.cs" />
+    <Compile Include="ITestSetup.cs" />
+    <Compile Include="TestSetup.cs" />
+    <Compile Include="SimpleTrulsProgram.cs" />
+    <Compile Include="MemoryDump.cs">
+      <DependentUpon>MemoryDump.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemoryDumpInit.cs" />
+    <Compile Include="CodeDump.cs">
+      <DependentUpon>CodeDump.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeDumpInit.cs" />
+    <Compile Include="MemoryDumpCOE.cs">
+      <DependentUpon>MemoryDumpCOE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemoryDumpMIF.cs">
+      <DependentUpon>MemoryDumpMIF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleReduction.cs" />
+    <Compile Include="SimpleRange.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\BPUImplementation\BPUImplementation.csproj">
+      <Project>{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}</Project>
+      <Name>BPUImplementation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MemoryDump.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MemoryDump.cs</LastGenOutput>
+    </None>
+    <None Include="CodeDump.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CodeDump.cs</LastGenOutput>
+    </None>
+    <None Include="MemoryDumpCOE.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MemoryDumpCOE.cs</LastGenOutput>
+    </None>
+    <None Include="MemoryDumpMIF.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MemoryDumpMIF.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BPUImplementation</RootNamespace>
+    <AssemblyName>BPUImplementation</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SME">
+      <HintPath>packages\SME.0.1\lib\net45\SME.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.CSVTracer">
+      <HintPath>packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.CSVTracer.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Attributes">
+      <HintPath>packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="SME.Render.VHDL.Components">
+      <HintPath>packages\SME.VHDL.0.1\lib\net45\SME.Render.VHDL.Components.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types.cs" />
+    <Compile Include="PipelineStage1.cs" />
+    <Compile Include="Microcode.cs" />
+    <Compile Include="MicrocodeDriver.cs" />
+    <Compile Include="ExecuteFeeder.cs" />
+    <Compile Include="PipelineStage2.cs" />
+    <Compile Include="PipelineStage3.cs" />
+    <Compile Include="MemoryReader.cs" />
+    <Compile Include="MemoryWriteFeeder.cs" />
+    <Compile Include="MemoryWriter.cs" />
+    <Compile Include="EmulatedMemoryStorage.cs" />
+    <Compile Include="ALU.cs" />
+    <Compile Include="ProgramMemory.cs" />
+    <Compile Include="CompletionDetector.cs" />
+    <Compile Include="MockMemoryItem.cs" />
+    <Compile Include="RegisterBanks.cs" />
+    <Compile Include="RegisterOutputMultiplexer.cs" />
+    <Compile Include="RegisterInputDistributor.cs" />
+    <Compile Include="MemoryReadDistributor.cs" />
+    <Compile Include="BankForwarder.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

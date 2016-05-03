@@ -1,0 +1,60 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+library SYSTEM_TYPES;
+use work.SYSTEM_TYPES.ALL;
+
+library CUSTOM_TYPES;
+use work.CUSTOM_TYPES.ALL;
+
+package MEMORY_TYPES is
+
+    constant Memory_Size: INTEGER := 1024;
+    type T_MEMORY_STORAGE is array(0 to (Memory_Size-1)) of T_SYSTEM_UINT8;
+
+    procedure Memory_WriteStorage(constant address : in unsigned; constant value : in T_DATA; variable mem : out T_MEMORY_STORAGE);
+
+    pure function Memory_ReadStorage(constant address : in unsigned; constant mem : in T_MEMORY_STORAGE) return T_DATA;
+
+    procedure Memory_ReadStorage_Proc(constant address : in unsigned; constant mem : in T_MEMORY_STORAGE; variable res : out T_DATA);
+
+    constant Memory_IntialValues : T_MEMORY_STORAGE := (
+<# foreach(var b in memory) { #>
+        SYSTEM_UINT8(<#= b #>),  	--'<#= Convert.ToString(b, 2).PadLeft(8, '0') #>',
+<# } #>
+    others => (others => '0'));
+
+end MEMORY_TYPES;
+
+package body MEMORY_TYPES is
+
+    procedure Memory_ReadStorage_Proc(constant address : in unsigned; constant mem : in T_MEMORY_STORAGE; variable res : out T_DATA) is
+    begin
+        res := mem(to_integer(address))<#
+for (var i = 1; i < BPUImplementation.RegisterData.DATA_LENGTH; i++) { #> & mem(to_integer(address + <#= i#>))<# } #>;
+    end Memory_ReadStorage_Proc;
+
+    pure function Memory_ReadStorage(constant address : in unsigned; constant mem : in T_MEMORY_STORAGE) return T_DATA is
+        variable r : T_DATA;
+    begin
+        Memory_ReadStorage_Proc(address, mem, r);
+        return r;
+    end Memory_ReadStorage;
+
+
+    procedure Memory_WriteStorage(constant address : in unsigned; constant value : in T_DATA; variable mem : out T_MEMORY_STORAGE) is
+    begin
+<# for (var i = BPUImplementation.RegisterData.DATA_LENGTH - 1; i >= 0; i--) { #>
+        mem(to_integer(address + <#= i #>)) := value(<#= ((i + 1) * 8) - 1 #> downto <#= i * 8 #>);
+<# } #>
+    end Memory_WriteStorage;
+
+
+end MEMORY_TYPES;
