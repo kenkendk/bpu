@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUImplementation", "BPUImplementation.csproj", "{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUImplementation", "BPUImplementation\BPUImplementation.csproj", "{A4F7C5AD-E62C-4EA3-8258-30072370B6FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUSimulator", "..\BPUSimulator\BPUSimulator.csproj", "{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUSimulator", "BPUSimulator\BPUSimulator.csproj", "{FE8E9A92-2F5B-4797-BA15-D5235161A6FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUCompiler", "..\BPUCompiler\BPUCompiler.csproj", "{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPUCompiler", "BPUCompiler\BPUCompiler.csproj", "{BE0D04BA-6F56-4D06-B88D-C7586DC2702C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
